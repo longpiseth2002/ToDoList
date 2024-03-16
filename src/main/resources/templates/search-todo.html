@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home Page</title>
     <!--    link flowbite -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
     <!--    script tailwind -->
@@ -62,47 +62,80 @@
 </header>
 
 
-<main class="flex-grow flex flex-col items-center justify-center w-full ">
-    <h2 class="text-3xl my-10 "> PRODUCT</h2>
-
-
+<main class="flex-grow flex flex-col items-center justify-center">
     <div class=" w-full ">
-        <form class="mx-auto w-[30%]" action="@{/todo/update/{id}(id=${todoEdit.id})}" th:action="@{/todo/update/{id}(id=${todoEdit.id})}" th:object="${todoEdit}" method="post">
+        <form class="mx-auto w-[30%]" action="#" method="post">
             <div class="mb-5">
                 <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black ">Task</label>
                 <input type="text" id="id"
-                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black  dark:shadow-sm-light" th:field="*{task}" placeholder=" Enter Task" />
+                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black  dark:shadow-sm-light" placeholder=" Enter Task" />
             </div>
             <div class="mb-5">
-                <label for="task" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">DESCRIPTION</label>
-                <input type="text" id="task"
-                       class=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black " th:field="*{description}"
-                       placeholder=" Enter Task "  required/>
-            </div>
-            <div class="mb-5">
-                <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">CREATE AT </label>
-                <input type="text" id="repeat-password"
-                       class="shadow-sm  border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black dark:shadow-sm-light " th:field="*{createdAt}"
-                       placeholder=" Enter Description " required/>
+                <label for="isDone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Select an option</label>
+                <select id="isDone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:text-black ">
+                    <option selected>Choose  </option>
+                    <option value="US">true</option>
+                    <option value="CA">false</option>
+                </select>
             </div>
 
-            <div class=" flex justify-between ">
+
+            <div class=" flex justify-between  ">
                 <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    CREATE
+                    SEARCHING
                 </button>
-
                 <a th:href="@{/todo/list}" class="text-red-500">
                     <button type="button"
                             class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
-                        CANCEL
+                        BACK TO HOME PAGE
                     </button>
                 </a>
             </div>
 
         </form>
     </div>
+    <h2 class="text-3xl font-bold mt-[50px]  ">PRODUCT LIST</h2>
 
+    <div class="container mx-auto py-10">
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse border-none">
+                <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-4">ID</th>
+                    <th class="px-4 py-4">TASK</th>
+                    <th class="px-4 py-4">DESCRIPTION</th>
+                    <th class="px-4 py-4">IS DONE</th>
+                    <th class="px-4 py-4">CREATE AT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="searchToDo : ${searchResult}"
+                    class="text-center odd:bg-white even:bg-gray-100 border-b dark:border-gray-700">
+                    <td class="border p-4 align-middle font-semibold text-lg " th:text="${searchToDo.id}"></td>
+                    <td class="border p-4 align-middle font-semibold text-lg " th:text="${searchToDo.task}"></td>
+                    <td class="border p-4 align-middle font-semibold text-lg " th:text="${searchToDo.description}"></td>
+                    <td class="border p-4 align-middle font-semibold text-lg " th:text="${searchToDo.isDone}"></td>
+                    <td class="border p-4 align-middle font-semibold text-lg " th:text="${searchToDo.createdAt}"></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        <a th:href="@{/todo/new}">
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span class="relative px-4 py-3 transition-all ease-in duration-75 bg-white dark:bg-blue-500 rounded-md group-hover:bg-opacity-0">ADD PRODUCT</span>
+            </button>
+        </a>
+        <a th:href="@{/todo/search}">
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span class="relative px-4 py-3 transition-all ease-in duration-75 bg-white dark:bg-blue-500 rounded-md group-hover:bg-opacity-0">SEARCH PRODUCT</span>
+            </button>
+        </a>
+    </div>
 
 </main>
 
@@ -214,5 +247,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 </html>
-
-

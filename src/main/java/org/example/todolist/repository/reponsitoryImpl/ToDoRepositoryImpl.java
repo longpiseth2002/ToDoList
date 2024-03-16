@@ -26,44 +26,43 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 
 
     @Override
-    public List<ToDo> view() {
-        return null;
-    }
-
-    @Override
     public ToDo create( ToDo toDo) {
         toDos.add(toDo);
         return toDo;
     }
 
     @Override
-    public List<ToDo> delete(List<ToDo> todos, Integer id) {
-        for(ToDo todo : todos){
-            if(todo.getId() == id){
-                todos.remove(todo);
-            }
-        }
-        return todos;
+    public List<ToDo> delete(int id) {
+        toDos.removeIf(todo -> todo.getId() == id);
+        return toDos;
     }
 
-    @Override
-    public ToDo update(List<ToDo> todoList, int id) {
-        Optional<ToDo> toDo = todoList.stream().filter(todo -> todo.getId() == id).findFirst();
-        if(toDo.isPresent())
-        {
-            return toDo.get();
-        }
-        return null;
-    }
 
     @Override
-    public List<ToDo> searchList(String task) {
+    public List<ToDo> searchList(String task, boolean isDone) {
         List<ToDo> searchResult = toDos.stream()
                 .filter(todo -> todo.getTask().equalsIgnoreCase(task))
+                .filter(todo -> todo.isDone() == isDone)
                 .collect(Collectors.toList());
         return searchResult;
     }
-    public Optional<ToDo> getTodoById(int id){
-       return toDos.stream().filter(toDo -> toDo.getId() == id).findFirst();
+
+
+
+    public ToDo getToDoById(int id) {
+        return toDos.stream()
+                .filter(person -> person.getId()== (id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid person Id:" + id));
+    }
+
+
+    @Override
+    public ToDo updateToDo(int id, ToDo toDosDetails) {
+        ToDo toDos = getToDoById(id);
+        toDos.setTask(toDosDetails.getTask());
+        toDos.setDescription(toDosDetails.getDescription());
+        toDos.setDone(toDosDetails.isDone());
+        return toDos;
     }
 }

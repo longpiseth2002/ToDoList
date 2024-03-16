@@ -11,36 +11,66 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/todo")
 public class TodoController {
     private final ToDoServiceImpl toDoServiceImpl;
-    TodoController(  ToDoServiceImpl toDoServiceImpl){
+
+    TodoController(ToDoServiceImpl toDoServiceImpl) {
         this.toDoServiceImpl = toDoServiceImpl;
     }
 
     @GetMapping("/list")
-    public String getAll(Model model){
-        model.addAttribute("toDosList" , toDoServiceImpl.getAll());
+    public String getAll(Model model) {
+        model.addAttribute("toDosList", toDoServiceImpl.getAll());
         return "index";
     }
 
     @GetMapping("/new")
-    public String add(){
+    public String add() {
         return "add-todo";
     }
 
 
     @PostMapping("/new")
-    public String addProduct(@ModelAttribute ToDo toDo) {
+    public String addProduct(@ModelAttribute ToDo toDo, @RequestParam(value = "isDone", required = false) String isDoneValue) {
+        boolean isDone = isDoneValue != null && isDoneValue.equals("true");
+        toDo.setDone(isDone);
         toDoServiceImpl.create(toDo);
         return "redirect:/todo/list";
     }
-@GetMapping("/edit/{id}")
-    public String getViewEdit(@PathVariable("id") int id, Model model){
-        model.addAttribute("todo", toDoServiceImpl.getTodoById(id));
+
+
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        model.addAttribute("todoEdit", toDoServiceImpl.getToDoById(id));
         return "edit-todo";
     }
+
     @PostMapping("/update/{id}")
-    public String updateTodo(){
-        return"redirect:/todo/list";
+    public String updatePerson(@PathVariable("id") int id, ToDo toDo) {
+        toDoServiceImpl.updateToDo(id, toDo);
+        return "redirect:/todo/list";
     }
+
+    @GetMapping("/delete/{id}")
+    public String showDeleteConfirmation(@PathVariable("id") int id, Model model) {
+        model.addAttribute("deleteToDo", toDoServiceImpl.getToDoById(id));
+        return "delete-todo";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteTodo(@PathVariable("id") int id) {
+        toDoServiceImpl.delete(id);
+        return "redirect:/todo/list";
+    }
+
+
+    @GetMapping("/search")
+    public String search( Model model) {
+        model.addAttribute("searchResult", toDoServiceImpl.getAll());
+        return "search-todo";
+    }
+
+
+
+
 
 
 }

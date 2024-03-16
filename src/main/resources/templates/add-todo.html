@@ -62,51 +62,43 @@
 </header>
 
 
+<!-- HTML code for the form -->
 <main class="flex-grow flex flex-col items-center justify-center w-full ">
-    <h2 class="text-3xl my-10 ">CREATE NEW PRODUCT</h2>
-
-
-    <div class=" w-full ">
-        <form action="/todo/new" method="post" class=" mx-auto w-[30%] ">
+    <h2 class="text-3xl my-10">CREATE NEW PRODUCT</h2>
+    <div class="w-full ">
+        <form action="/todo/new" method="post" class="mx-auto w-[30%]">
             <div class="mb-5">
-                <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">ID</label>
-                <input type="text" id="id"
-                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black dark:shadow-sm-light"
-                       placeholder="Enter ID" name="id" required/>
-            </div>
-
-            <div class="mb-5">
-                <label for="task" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">TASK</label>
-                <input type="text" id="task"
-                       class=" border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black "
-                       placeholder=" Enter Task " name="task" required/>
+                <!-- Label and input for the task -->
+                <label for="task" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" value="Add">TASK</label>
+                <input type="text" id="task" class="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black" placeholder="Enter Task" name="task" required/>
             </div>
             <div class="mb-5">
-                <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">DESCRIPTION </label>
-                <input type="text" id="repeat-password"
-                       class="shadow-sm  border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black dark:shadow-sm-light "
-                       placeholder=" Enter Description " name="description" required/>
+                <!-- Label and textarea for the description -->
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">DESCRIPTION</label>
+                <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-200 dark:text-black" placeholder="Write your description here..." name="description"></textarea>
+            </div>
+            <div class="flex items-center mb-5">
+                <input id="isDone" type="radio" value="true" name="isDone" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="isDone" class="ms-2 text-sm font-medium text-gray-900 dark:text-black">Is Done</label>
             </div>
 
-            <div class=" flex justify-between ">
-                <button type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    CREATE
-                </button>
 
+
+
+
+
+            <div class="flex justify-between">
+                <!-- Submit button for creating the todo item -->
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">CREATE</button>
+                <!-- Cancel button -->
                 <a th:href="@{/todo/list}" class="text-red-500">
-                    <button type="button"
-                            class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
-                        CANCEL
-                    </button>
+                    <button type="button" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">CANCEL</button>
                 </a>
             </div>
-
         </form>
     </div>
-
-
 </main>
+
 
 
 <footer class="bg-white ">
@@ -210,7 +202,6 @@
         </div>
     </div>
 </footer>
-
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

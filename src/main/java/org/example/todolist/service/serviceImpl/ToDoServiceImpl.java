@@ -7,8 +7,6 @@ import org.example.todolist.service.ToDoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ToDoServiceImpl implements ToDoService {
@@ -17,10 +15,6 @@ public class ToDoServiceImpl implements ToDoService {
         return toDoRepositoryImpl.getToDos();
     }
 
-    @Override
-    public List<ToDo> view() {
-        return toDoRepositoryImpl.view();
-    }
 
     @Override
     public ToDo create( ToDo toDo) {
@@ -28,26 +22,26 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     @Override
-    public List<ToDo> delete(List<ToDo> todos, Integer id) {
-        return toDoRepositoryImpl.delete(todos,id);
+    public List<ToDo> delete( int id) {
+        return toDoRepositoryImpl.delete(id);
+    }
+
+
+    @Override
+    public List<ToDo> searchList(String task , boolean isDone) {
+        return toDoRepositoryImpl.searchList(task,isDone);
     }
 
     @Override
-    public ToDo update(List<ToDo> todoList, int id) {
-        return toDoRepositoryImpl.update(todoList,id);
+    public ToDo getToDoById(int id) {
+        return toDoRepositoryImpl.getToDoById(id);
     }
 
-    @Override
-    public List<ToDo> searchList(String task) {
-        return toDoRepositoryImpl.searchList(task);
-    }
 
     @Override
-    public Optional<ToDo> getTodoById(int id) {
-        return Optional.empty();
+    public ToDo updateToDo(int id, ToDo personDetails) {
+        return toDoRepositoryImpl.updateToDo(id,personDetails);
     }
-//    public void save(ToDo toDo) {
-//        toDoRepository.save(toDo);
-//    }
+
 
 }
